@@ -3,7 +3,7 @@ package application.entity;
 import javax.persistence.*;
 
 @Entity
-public class MusicsEntity {
+public class MusicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,38 +18,54 @@ public class MusicsEntity {
 
     private String album;
 
-    public MusicsEntity() {
+    private String path;
+
+    public MusicEntity() {
     }
 
-    public MusicsEntity(Long idMusic) {
+    public MusicEntity(Long idMusic) {
         this.setIdMusic(idMusic);
     }
 
-    public MusicsEntity(Long idMusic, String title) {
+    public MusicEntity(Long idMusic, String title) {
         this(idMusic);
         this.setTitle(title);
     }
 
-    public MusicsEntity(Long idMusic, String title, String artist) {
+    public MusicEntity(Long idMusic, String title, String artist) {
         this(idMusic, title);
         this.setArtist(artist);
     }
 
-    public MusicsEntity(Long idMusic, String title, String artist, Long duration) {
+    public MusicEntity(Long idMusic, String title, String artist, Long duration) {
         this(idMusic, title, artist);
         this.setDuration(duration);
     }
 
-    public MusicsEntity(Long idMusic, String title, String artist, Long duration, String album) {
+    public MusicEntity(Long idMusic, String title, String artist, Long duration, String album) {
         this(idMusic, title, artist, duration);
         this.setAlbum(album);
+    }
+
+    public MusicEntity(Long idMusic, String title, String artist, Long duration, String album, String path) {
+        this(idMusic, title, artist, duration, album);
+        this.setPath(path);
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public MusicEntity setPath(String path) {
+        this.path = path;
+        return this;
     }
 
     public Long getIdMusic() {
         return idMusic;
     }
 
-    public MusicsEntity setIdMusic(Long idMusic) {
+    public MusicEntity setIdMusic(Long idMusic) {
         this.idMusic = idMusic;
         return this;
     }
@@ -58,7 +74,7 @@ public class MusicsEntity {
         return title;
     }
 
-    public MusicsEntity setTitle(String title) {
+    public MusicEntity setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -67,7 +83,7 @@ public class MusicsEntity {
         return artist;
     }
 
-    public MusicsEntity setArtist(String artist) {
+    public MusicEntity setArtist(String artist) {
         this.artist = artist;
         return this;
     }
@@ -76,7 +92,7 @@ public class MusicsEntity {
         return duration;
     }
 
-    public MusicsEntity setDuration(Long duration) {
+    public MusicEntity setDuration(Long duration) {
         this.duration = duration;
         return this;
     }
@@ -85,7 +101,7 @@ public class MusicsEntity {
         return album;
     }
 
-    public MusicsEntity setAlbum(String album) {
+    public MusicEntity setAlbum(String album) {
         this.album = album;
         return this;
     }
@@ -98,13 +114,15 @@ public class MusicsEntity {
                         "artist: %s, " +
                         "duration: %d, " +
                         "album: %s " +
+                        "path: %s " +
                         "]",
-                MusicsEntity.class,
+                MusicEntity.class,
                 this.getIdMusic(),
                 this.getTitle(),
                 this.getArtist(),
                 this.getDuration(),
-                this.getAlbum()
+                this.getAlbum(),
+                this.getPath()
         );
     }
 
