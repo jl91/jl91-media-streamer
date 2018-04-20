@@ -2,9 +2,10 @@ package application.repository;
 
 import application.entity.MusicEntity;
 import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
+@Repository
 public interface MusicRepository extends CrudRepository<MusicEntity, Long> {
 
     MusicEntity findOneById(Long id);

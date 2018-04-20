@@ -3,12 +3,13 @@ package application.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "musics")
 public class MusicEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_music")
-    private Long idMusic;
+    private Long id;
 
     private String title;
 
@@ -23,32 +24,32 @@ public class MusicEntity {
     public MusicEntity() {
     }
 
-    public MusicEntity(Long idMusic) {
-        this.setIdMusic(idMusic);
+    public MusicEntity(Long id) {
+        this.setId(id);
     }
 
-    public MusicEntity(Long idMusic, String title) {
-        this(idMusic);
+    public MusicEntity(Long id, String title) {
+        this(id);
         this.setTitle(title);
     }
 
-    public MusicEntity(Long idMusic, String title, String artist) {
-        this(idMusic, title);
+    public MusicEntity(Long id, String title, String artist) {
+        this(id, title);
         this.setArtist(artist);
     }
 
-    public MusicEntity(Long idMusic, String title, String artist, Long duration) {
-        this(idMusic, title, artist);
+    public MusicEntity(Long id, String title, String artist, Long duration) {
+        this(id, title, artist);
         this.setDuration(duration);
     }
 
-    public MusicEntity(Long idMusic, String title, String artist, Long duration, String album) {
-        this(idMusic, title, artist, duration);
+    public MusicEntity(Long id, String title, String artist, Long duration, String album) {
+        this(id, title, artist, duration);
         this.setAlbum(album);
     }
 
-    public MusicEntity(Long idMusic, String title, String artist, Long duration, String album, String path) {
-        this(idMusic, title, artist, duration, album);
+    public MusicEntity(Long id, String title, String artist, Long duration, String album, String path) {
+        this(id, title, artist, duration, album);
         this.setPath(path);
     }
 
@@ -61,12 +62,12 @@ public class MusicEntity {
         return this;
     }
 
-    public Long getIdMusic() {
-        return idMusic;
+    public Long getId() {
+        return id;
     }
 
-    public MusicEntity setIdMusic(Long idMusic) {
-        this.idMusic = idMusic;
+    public MusicEntity setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -109,7 +110,7 @@ public class MusicEntity {
     @Override
     public String toString() {
         return String.format("%s, [ " +
-                        "idMusic: %d, " +
+                        "id: %d, " +
                         "title: %s, " +
                         "artist: %s, " +
                         "duration: %d, " +
@@ -117,7 +118,7 @@ public class MusicEntity {
                         "path: %s " +
                         "]",
                 MusicEntity.class,
-                this.getIdMusic(),
+                this.getId(),
                 this.getTitle(),
                 this.getArtist(),
                 this.getDuration(),
