@@ -45,8 +45,12 @@ public class MusicController {
     @RequestMapping(
             value = "{id}",
             method = RequestMethod.PUT,
-            produces = "application/json",
-            consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = {
+                    MediaType.APPLICATION_JSON_UTF8_VALUE,
+                    MediaType.MULTIPART_FORM_DATA_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE
+            }
     )
     @ResponseBody
     public ResponseEntity update(
