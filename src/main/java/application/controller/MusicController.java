@@ -4,6 +4,7 @@ import application.entity.MusicEntity;
 import application.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,67 +12,55 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/")
 public class MusicController {
 
     @Autowired
     private MusicRepository musicRepository;
 
-    @GetMapping("/")
+    @GetMapping()
     @ResponseBody
     public Iterable<MusicEntity> retrieve() {
         return this.musicRepository
                 .findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     @ResponseBody
     public ResponseEntity<Optional<MusicEntity>> retrieveById(@PathVariable("id") Long id) {
         return new ResponseEntity<Optional<MusicEntity>>(this.musicRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping()
     @ResponseBody
     public ResponseEntity create(
-            @RequestParam("title") String title,
-            @RequestParam("album") String album,
-            @RequestParam("duration") Long duration,
-            @RequestParam("artist") String artist,
-            @RequestParam("path") String path
+            @RequestBody MusicEntity musicEntity
     ) {
-        MusicEntity musicEntity = new MusicEntity();
-        musicEntity
-                .setTitle(title)
-                .setAlbum(album)
-                .setDuration(duration)
-                .setArtist(artist)
-                .setPath(path)
-        ;
-
         this.musicRepository
                 .save(musicEntity);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @RequestMapping(
+            value = "{id}",
+            method = RequestMethod.PUT,
+            produces = "application/json",
+            consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}
+    )
     @ResponseBody
     public ResponseEntity update(
-            @PathVariable("id") Long id,
-            @RequestParam("title") String title,
-            @RequestParam("album") String album,
-            @RequestParam("duration") Long duration,
-            @RequestParam("artist") String artist,
-            @RequestParam("path") String path
+            @PathVariable Long id,
+            @RequestBody MusicEntity musicEntity
     ) {
 
-        MusicEntity musicEntity = this.musicRepository.findOneById(id);
+        MusicEntity update = this.musicRepository.findOneById(id);
 
-        musicEntity
-                .setTitle(title)
-                .setAlbum(album)
-                .setDuration(duration)
-                .setArtist(artist)
-                .setPath(path)
+        update.setTitle(musicEntity.getTitle())
+                .setAlbum(musicEntity.getAlbum())
+                .setArtist(musicEntity.getArtist())
+                .setDuration(musicEntity.getDuration())
+                .setPath(musicEntity.getPath())
         ;
 
         this.musicRepository
